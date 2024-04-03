@@ -102,10 +102,15 @@ jobs:
         env:
           THEOS: ${{ github.workspace }}/theos
 
+      - name: Install gdrive
+        run: |
+          brew install python3
+          pip install gdown
+
       - name: Prepare YouTube iPA
         id: prepare_youtube
         run: |
-          wget --no-check-certificate "$YOUTUBE_URL" -r --no-verbose -O main/YouTube.ipa
+          gdown "$YOUTUBE_URL" -O main/YouTube.ipa
           cd ${{ github.workspace }}/main
           mv YouTube.ipa YouTube.zip
           unzip -q YouTube.zip
